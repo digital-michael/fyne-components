@@ -42,3 +42,4 @@ temp/
 .DS_Store
 examples/*/[!.]*/[^R]*
 examples/*/*.exe
+.work

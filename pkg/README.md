@@ -1,18 +1,50 @@
 # pkg/
 
-This directory contains the public library code that can be imported by external projects.
+Public library code for fyne-components - importable by external projects.
 
-Place your reusable, publicly exported packages here. Each subdirectory should represent a logical package that external users can import.
+## Available Components
 
-Example structure:
-```
-pkg/
-├── widgets/       # Custom Fyne widgets
-├── layouts/       # Custom layouts
-└── themes/        # Custom themes
-```
+### [Table Widget](table/)
 
-Import example:
+Full-featured sortable, filterable table with inline editing and hierarchical data support.
+
 ```go
-import "github.com/digital-michael/fyne-components/pkg/widgets"
+import "github.com/digital-michael/fyne-components/pkg/table"
 ```
+
+**Features**: Sorting, filtering, inline editing, keyboard navigation, tree structures, custom rendering
+
+[📖 Documentation](table/) | [🎯 Demo](../examples/table-demo/)
+
+### [Password Component](password/)
+
+Password strength validation and visual feedback with entropy-based scoring.
+
+```go
+import "github.com/digital-michael/fyne-components/pkg/password"
+```
+
+**Features**: Strength calculation (0-100), visual meter, pattern detection, feedback suggestions
+
+[📖 Documentation](password/) | [🎯 Demo](../examples/password-demo/)
+
+## Usage
+
+Each component has its own README with comprehensive documentation, API reference, and examples.
+
+## Testing
+
+All components include comprehensive test suites:
+
+```bash
+# Run all tests
+go test ./...
+
+# With coverage
+go test ./... -cover
+```
+
+**Test Coverage:**
+- Table: 18 tests
+- Password: 63 tests
+- Total: 81 tests passing
