@@ -40,3 +40,5 @@ temp/
 *.swo
 *~
 .DS_Store
+examples/*/[!.]*/[^R]*
+examples/*/*.exe
