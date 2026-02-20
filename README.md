@@ -9,7 +9,7 @@ This is a Go module library providing reusable components for [Fyne](https://fyn
 ## Installation
 
 ```bash
-go get github.com/company/fyne-components
+go get github.com/digital-michael/fyne-components
 ```
 
 ## Project Structure
@@ -66,7 +66,7 @@ make coverage
 ## Usage
 
 ```go
-import "github.com/company/fyne-components/pkg/your-package"
+import "github.com/digital-michael/fyne-components/pkg/your-package"
 ```
 
 ## License

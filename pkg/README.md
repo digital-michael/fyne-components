@@ -14,5 +14,5 @@ pkg/
 
 Import example:
 ```go
-import "github.com/company/fyne-components/pkg/widgets"
+import "github.com/digital-michael/fyne-components/pkg/widgets"
 ```
