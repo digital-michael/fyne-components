@@ -2,6 +2,7 @@ package table
 
 import (
 	"fmt"
+	"sort"
 
 	"fyne.io/fyne/v2/widget"
 )
@@ -80,6 +81,8 @@ func (s *TableState) GetSelectedRows() []int {
 		for row := range s.selectedRows {
 			rows = append(rows, row)
 		}
+		// Sort to ensure consistent ordering
+		sort.Ints(rows)
 		return rows
 	}
 	// Single-select mode
