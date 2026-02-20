@@ -228,7 +228,6 @@ func (h *DefaultKeyHandler) handleArrowKey(direction string, table *Table) {
 				// Initialize to first visible column if not set
 				table.state.selectedCol = table.state.visibleColumns[0]
 			}
-		} else {
 		}
 	case "right":
 		// Only handle column navigation if not in row-only mode
@@ -249,7 +248,6 @@ func (h *DefaultKeyHandler) handleArrowKey(direction string, table *Table) {
 				// Initialize to first visible column if not set
 				table.state.selectedCol = table.state.visibleColumns[0]
 			}
-		} else {
 		}
 	}
 
@@ -376,23 +374,6 @@ func (h *DefaultKeyHandler) handlePageNavigation(direction string, table *Table)
 		// Clear the keyboard navigation flag after selection is complete
 		table.state.isKeyboardNavigation = false
 	}
-}
-
-// handleKeyboardEdit starts inline editing on the first editable column of selected row
-func (h *DefaultKeyHandler) handleKeyboardEdit(table *Table) {
-	if table.state.selectedRow < 0 || table.state.selectedRow >= len(table.data) {
-		return
-	}
-
-	// Find first editable column (skip columns with popup menus)
-	for _, colIndex := range table.state.visibleColumns {
-		col := table.config.Columns[colIndex]
-		if col.Editable && col.PopupOptions == nil {
-			table.startEdit(table.state.selectedRow, colIndex)
-			return
-		}
-	}
-
 }
 
 // handleKeyboardDoubleClickAction triggers the action callback for the selected row/column

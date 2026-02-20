@@ -16,6 +16,8 @@ import (
 	"fyne.io/fyne/v2/driver/desktop"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // Ensure Table implements required interfaces
@@ -320,7 +322,7 @@ func (st *Table) createFilterUI() {
 	st.filterToggleCheckbox.SetChecked(false) // Start unchecked (filter hidden)
 
 	// Use checkbox directly (for backwards compatibility, checkboxWithBg points to same widget)
-	st.checkboxWithBg = container.NewMax(st.filterToggleCheckbox)
+	st.checkboxWithBg = container.NewStack(st.filterToggleCheckbox)
 
 	// Create the filter section container that will hold the filter controls (no checkbox)
 	// The checkbox is accessed separately via GetFilterToggleCheckbox() for Settings dialog
@@ -830,11 +832,11 @@ func (st *Table) tableCreateCell() fyne.CanvasObject {
 	// Create a container that can hold various content (label, entry, buttons, etc.)
 	// If custom font size is configured, use canvas.Text instead of widget.Label
 	if st.config.FontSize > 0 {
-		text := canvas.NewText("", theme.ForegroundColor())
+		text := canvas.NewText("", theme.Color(theme.ColorNameForeground))
 		text.TextSize = st.config.FontSize
-		return container.NewMax(text)
+		return container.NewStack(text)
 	}
-	return container.NewMax(widget.NewLabel(""))
+	return container.NewStack(widget.NewLabel(""))
 }
 
 // tableUpdateCell updates a cell with data
@@ -1047,7 +1049,7 @@ func (st *Table) renderDataCell(displayColIndex int, dataIndex int, cellContaine
 			}
 		}
 		if text == nil {
-			text = canvas.NewText(fieldValue, theme.ForegroundColor())
+			text = canvas.NewText(fieldValue, theme.Color(theme.ColorNameForeground))
 		} else {
 			text.Text = fieldValue
 		}
@@ -1098,7 +1100,7 @@ func (st *Table) renderDataCell(displayColIndex int, dataIndex int, cellContaine
 	// Apply or remove highlighting based on selection state
 	if highlightCell {
 		// Wrap the content with selection background using Max container (stacks objects)
-		selectionBg := canvas.NewRectangle(theme.SelectionColor())
+		selectionBg := canvas.NewRectangle(theme.Color(theme.ColorNameSelection))
 
 		// Add border around the row (thin line on edges)
 		// Determine which borders this cell needs based on its position
@@ -1106,7 +1108,7 @@ func (st *Table) renderDataCell(displayColIndex int, dataIndex int, cellContaine
 		isLastCol := displayColIndex == len(st.state.visibleColumns)-1
 
 		// Create border lines (1 pixel width)
-		borderColor := theme.PrimaryColor()
+		borderColor := theme.Color(theme.ColorNamePrimary)
 		borderWidth := float32(1)
 
 		// Top border on all cells in selected row
@@ -1323,7 +1325,8 @@ func (st *Table) extractFieldValue(data interface{}, colID string) string {
 	field := v.FieldByName(colID)
 	if !field.IsValid() {
 		// Try capitalized version (e.g., "name" -> "Name")
-		capitalized := strings.Title(colID)
+		caser := cases.Title(language.English)
+		capitalized := caser.String(colID)
 		field = v.FieldByName(capitalized)
 	}
 	if !field.IsValid() {
@@ -1547,7 +1550,7 @@ func (st *Table) autoResizeColumn(colIndex int) {
 // measureTextWidth estimates the width needed for text
 func (st *Table) measureTextWidth(text string, bold bool) float32 {
 	// Create a temporary text object to measure size
-	tempText := canvas.NewText(text, theme.ForegroundColor())
+	tempText := canvas.NewText(text, theme.Color(theme.ColorNameForeground))
 	if bold {
 		tempText.TextStyle = fyne.TextStyle{Bold: true}
 	}
