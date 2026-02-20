@@ -1,12 +1,13 @@
-.PHONY: help test lint fmt vet coverage deps clean tidy
+.PHONY: help test lint fmt vet coverage deps clean tidy build build-examples build-table-demo
 
 # Variables
 GO := go
+GOPATH := $(shell go env GOPATH)
 GOFLAGS := -v
 GOTEST := $(GO) test
 GOVET := $(GO) vet
 GOFMT := $(GO) fmt
-GOLINT := golangci-lint
+GOLINT := $(GOPATH)/bin/golangci-lint
 COVERAGE_FILE := coverage.out
 COVERAGE_HTML := coverage.html
 
@@ -39,6 +40,16 @@ test: ## Run tests
 
 test-verbose: ## Run tests with verbose output
 	$(GOTEST) -v ./...
+
+build: build-examples ## Build all examples
+
+build-examples: build-table-demo ## Build all example applications
+
+build-table-demo: ## Build the table demo application
+	@echo "Building table-demo..."
+	@mkdir -p bin
+	$(GO) build -o bin/table-demo ./examples/table-demo
+	@echo "Built: bin/table-demo"
 
 coverage: ## Generate test coverage report
 	$(GOTEST) -coverprofile=$(COVERAGE_FILE) ./...
