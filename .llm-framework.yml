@@ -1,0 +1,22 @@
+# LLM Agent Framework Configuration
+# Connects this project to the LLM Agent Collaboration Framework.
+# See: ~/Documents/Entities/frameworks/llm-agent-framework/docs/getting-started.md
+#
+# template-version: 1.0.0
+# operating-mode: Full
+
+# Required: path to the infrastructure repo
+infrastructure: ~/Documents/Entities/frameworks/llm-agent-framework
+
+# Team/domain profile
+team: ~/Documents/Entities/frameworks/llm-agent-domains/cts
+
+# Personal profile: private, cross-project, cross-repo regardless of solo/team domain.
+# personal_identity is a stable resolution key — not an OS login name, not tied to
+# any one git platform's username. See llm-agent-personal/README.md for the
+# per-platform username mapping if ever needed.
+personal: ~/Documents/Entities/frameworks/llm-agent-personal
+personal_identity: digital-michael
+
+# Resolution order (most specific wins):
+#   personal > team > infrastructure
